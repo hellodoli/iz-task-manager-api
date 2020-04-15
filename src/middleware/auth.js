@@ -4,7 +4,6 @@ const User = require('../models/user');
 const auth = async (req, res, next) => {
   try {
     console.log('middleware auth');
-    console.log(req);
     const token = req.header('Authorization').replace('Bearer ', '');
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     console.log(decoded);

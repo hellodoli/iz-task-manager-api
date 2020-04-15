@@ -18,16 +18,21 @@ router.post('/tasks', auth, async (req, res) => {
 
 router.get('/tasks', auth, async (req, res) => {
   const match = {};
-  if (req.query.completed) {
-    match.completed = req.query.completed === 'true';
+  const query = req.query;
+  
+  if (query.schedule) {
+    if (query.schedule === 'today') {
+      const curDate = new Date().toJSON();
+      match.schedule = curDate.substring(0, 10);
+    }
   }
 
   try {
     const user = await req.user.populate({
       path: 'task',
       match, // filter
-      limit: 3, // how many item
-      skip: 2 // index data item
+      // limit: 3, // how many item
+      // skip: 2 // index data item
     }).execPopulate();
     res.send(user.task);
   } catch (error) {
@@ -39,6 +44,7 @@ router.get('/tasks/:id', auth, async (req, res) => {
   try {
     const task = await Task.findOne({ _id: req.params.id, owner: req.user._id });
     if (!task) return res.status(404).send();
+    await task.populate('owner').execPopulate();
     res.send(task);
   } catch (error) {
     res.status(500).send(error);
@@ -47,7 +53,7 @@ router.get('/tasks/:id', auth, async (req, res) => {
 
 router.patch('/tasks/:id', auth, async (req, res) => {
   const updates = Object.keys(req.body);
-  const allows = ['des', 'completed'];
+  const allows = ['des', 'completed', 'subtasks'];
   
   for (let i = 0; i < updates.length; i++) {
     if (!allows.includes(updates[i])) {

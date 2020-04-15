@@ -10,11 +10,24 @@ const taskSchema = new Schema({
     type: Boolean,
     default: false
   },
+  subtasks: [{
+    des: {
+      type: String,
+      required: true,
+      trim: true
+    }
+  }],
+  schedule: {
+    type: Schema.Types.Date,
+    default: null
+  },
   owner: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'User'
   }
+}, {
+  timestamps: true
 });
 
 const Task = new model('Task', taskSchema);

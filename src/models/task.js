@@ -21,6 +21,10 @@ const taskSchema = new Schema({
     type: Schema.Types.Date,
     default: null
   },
+  section: {
+    type: String,
+    default: null
+  },
   owner: {
     type: Schema.Types.ObjectId,
     required: true,

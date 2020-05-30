@@ -22,8 +22,9 @@ const taskSchema = new Schema({
     default: null
   },
   section: {
-    type: String,
-    default: null
+    type: Schema.Types.ObjectId,
+    default: null,
+    ref: 'Section'
   },
   owner: {
     type: Schema.Types.ObjectId,

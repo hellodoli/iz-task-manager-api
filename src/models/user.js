@@ -60,6 +60,12 @@ userSchema.virtual('task', {
   foreignField: 'owner'
 });
 
+userSchema.virtual('section', {
+  ref: 'Section',
+  localField: '_id',
+  foreignField: 'owner'
+});
+
 userSchema.pre('save', async function (next) {
   const user = this;
   console.log('just before save');

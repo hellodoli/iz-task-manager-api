@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const sectionSchema = new Schema({
-  des: {
+  section: {
     type: String,
     required: true,
     trim: true
@@ -10,6 +10,10 @@ const sectionSchema = new Schema({
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'User'
+  },
+  order: {
+    type: Number,
+    required: true
   }
 }, {
   timestamps: true

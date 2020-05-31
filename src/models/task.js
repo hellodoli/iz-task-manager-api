@@ -17,6 +17,17 @@ const taskSchema = new Schema({
       trim: true
     }
   }],
+  index: {
+    bySection: {
+      type: Number
+    },
+    byToday: {
+      type: Number
+    },
+    byUpcoming: {
+      type: Number
+    }
+  },
   schedule: {
     type: Schema.Types.Date,
     default: null

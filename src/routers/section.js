@@ -27,4 +27,25 @@ router.get('/sections', auth, async (req, res) => {
   }
 });
 
+router.patch('/sections/:id', auth, async (req, res) => {
+  try {
+    const updates = Object.keys(req.body);
+    const allows = ['des', 'order'];
+    const check = updates.every(update => allows.includes(update));
+    if (!check) return res.status(400).send({ error: 'Invalid updates' });
+
+    const section = await Section.findOne({
+      _id: req.params.id,
+      owner: req.user._id
+    });
+
+    if (!section) return res.status(404).send();
+    updates.forEach(update => section[update] = req.body[update]);
+    await section.save();
+    res.send(section);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 module.exports = router;

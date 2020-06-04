@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Task = require('../models/task');
 const auth = require('../middleware/auth');
-const ObjectId = require('mongodb').ObjectID;
 
 const checkValidDataUpdate = (dataUpdate) => {
   const updates = Object.keys(dataUpdate);
@@ -119,7 +118,7 @@ router.patch('/many', auth, async (req, res) => {
           if (raw) {
             count += 1;
             raws.push(raw);
-            if (count === 2) {
+            if (count === req.body.arrTask.length) {
               res.send({ raws });
             }
           }

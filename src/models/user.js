@@ -49,6 +49,9 @@ const userSchema = new Schema({
   }],
   avatar: {
     type: Buffer
+  },
+  overdate: {
+    type: Schema.Types.Date
   }
 }, {
   timestamps: true

@@ -36,7 +36,7 @@ router.get('/users/me', auth, (req, res) => {
 
 router.patch('/users/me', auth, async (req, res) => {
   const updates = Object.keys(req.body);
-  const allows = ['name', 'age', 'password', 'email'];
+  const allows = ['name', 'age', 'password', 'email', 'overdate'];
   
   for (let i = 0; i < updates.length; i++) {
     if (!allows.includes(updates[i])) {
@@ -116,9 +116,5 @@ router.post('/users/logout/all', auth, async (req, res) => {
     res.status(500).send(error);
   }
 });
-
-// check token user
-
-
 
 module.exports = router;

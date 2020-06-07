@@ -105,7 +105,7 @@ router.delete('/tasks/:id', auth, async (req, res) => {
 });
 
 // just testing for update many
-router.patch('/many', auth, async (req, res) => {
+router.patch('/tasksUpdateMany', auth, async (req, res) => {
   try {
     let count = 0;
     let raws = [];
